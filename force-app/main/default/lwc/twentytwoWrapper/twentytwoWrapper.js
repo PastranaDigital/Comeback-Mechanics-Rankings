@@ -4,7 +4,7 @@ import workoutImages from '@salesforce/resourceUrl/SPCompImages';
 import athleteResource from '@salesforce/resourceUrl/SPCompAthletes';
 import getViewModel from '@salesforce/apex/LeaderboardController.getViewModel';
 import { sortArray } from './helper.js';
-export default class CmWrapper extends LightningElement {
+export default class TwentytwoWrapper extends LightningElement {
 	outboundModel = {};
 	inboundModel = {};
 

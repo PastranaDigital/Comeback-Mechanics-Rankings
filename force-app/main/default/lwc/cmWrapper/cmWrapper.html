@@ -1,3 +1,144 @@
 <template>
-    
+	<div class="wrapper">
+		<header>
+			<div class="title">
+				<img src={img_logo} alt="Leaderboard" />
+				<h1>{headerTitle}</h1>
+			</div>
+		</header>
+		<div class="top-spacer"></div>
+
+		<div class="content">
+			<template if:true={loading}>
+				<div class="loading_div">
+					<img src={img_logo} alt="Leaderboard" />
+				</div>
+				<!-- <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner> -->
+			</template>
+			<template if:false={loading}>
+				<template if:true={showLeaderboardPage}>
+					<c-twentytwo-leaderboard
+						incoming-scores={allScoreSubmissions}
+						incoming-athlete-scores={allAthleteScores}>
+					</c-twentytwo-leaderboard>
+				</template>
+
+				<template if:true={showSubmitPage}>
+					<c-twentytwo-submit
+						oncallgetmodel={getModel}
+						oncallgotoleaderboard={handleLeaderboardClick}
+						oncallscrolltotop={scrollToTop}
+						current-workout={outboundModel.currentWorkout}
+						athlete-options={allAthleteOptions}
+						workout-results={allWorkoutResults}
+						athlete-info={allAthleteInfo}>
+					</c-twentytwo-submit>
+				</template>
+
+				<template if:true={showWorkoutPage}>
+					<c-twentytwo-workout
+						current-workout={outboundModel.currentWorkout}
+						workout-results={allWorkoutResults}>
+					</c-twentytwo-workout>
+				</template>
+
+				<template if:true={showMonthlyPage}>
+					<c-twentytwo-daily
+						oncallgetmodel={getModel}
+						oncallscrolltotop={scrollToTop}
+						current-challenge={outboundModel.currentChallenge}
+						athlete-options={allAthleteOptions}
+						challenge-entries={justChallengeEntries}>
+					</c-twentytwo-daily>
+					<!-- <c-twentytwo-monthly
+						oncallgetmodel={getModel}
+						oncallscrolltotop={scrollToTop}
+						current-challenge={outboundModel.currentChallenge}
+						athlete-options={allAthleteOptions}
+						challenge-totals={allAthleteInfo}
+						challenge-entries={justChallengeEntries}>
+					</c-twentytwo-monthly> -->
+				</template>
+			</template>
+		</div>
+
+		<div class="bottom-spacer"></div>
+		<footer>
+			<!-- <nav>
+				<a class="nav-btn" onclick={handleLeaderboardClick}>
+					<img src={nav_leaderboard} alt="Leaderboard" title="Leaderboard" />
+				</a>
+				<a class="nav-btn" onclick={handleSubmitClick}>
+					<img src={nav_score} alt="Submit" title="Submit" />
+				</a>
+				<a class="nav-btn" onclick={handleWorkoutClick}>
+					<img src={nav_workout} alt="Workout" title="Workout" />
+				</a>
+				<a class="nav-btn" onclick={handleMonthlyClick}>
+					<img src={nav_monthly} alt="Monthly Challenge" title="Monthly Challenge" />
+				</a>
+			</nav> -->
+			<nav>
+				<label for="leaderboard">
+					<input
+						type="radio"
+						id="leaderboard"
+						name="group"
+						class="nav-input leaderboard"
+						onclick={handleLeaderboardClick} />
+					<span class="nav-button">
+						<span class="nav-icon uil uil-award"></span>
+						<span class="nav-text">
+							•
+						</span>
+					</span>
+				</label>
+				<label for="submit">
+					<input
+						type="radio"
+						id="submit"
+						name="group"
+						class="nav-input submit"
+						onclick={handleSubmitClick} />
+					<span class="nav-button">
+						<span class="nav-icon uil uil-plus-square"></span>
+						<span class="nav-text">
+							•
+						</span>
+					</span>
+				</label>
+				<label for="workouts">
+					<input
+						type="radio"
+						id="workouts"
+						name="group"
+						class="nav-input workouts"
+						onclick={handleWorkoutClick} />
+					<span class="nav-button">
+						<span class="nav-icon uil uil-lock"></span>
+						<!-- <span class="nav-icon uil uil-file-alt"></span> -->
+						<span class="nav-text">
+							•
+						</span>
+					</span>
+				</label>
+				<label for="challenge">
+					<input
+						type="radio"
+						id="challenge"
+						name="group"
+						class="nav-input challenge"
+						onclick={handleMonthlyClick} />
+					<span class="nav-button">
+						<span class="nav-icon uil uil-clock"></span>
+						<!-- <span class="nav-icon uil uil-chart-growth-alt"></span> -->
+						<span class="nav-text">
+							•
+						</span>
+					</span>
+				</label>
+			</nav>
+		</footer>
+
+	</div>
 </template>
