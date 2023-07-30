@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CM_Total_Points__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Points</label>
+    <summarizedField>CM_Tournament_Result__c.CM_Points_Earned__c</summarizedField>
+    <summaryForeignKey>CM_Tournament_Result__c.CM_Player__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>
