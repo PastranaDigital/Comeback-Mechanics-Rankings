@@ -1,0 +1,38 @@
+.wrapper {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.third-column {
+	text-align: center;
+}
+
+.rank-title {
+	font-size: 0.75rem;
+}
+
+.player-name {
+	font-size: 1.125rem;
+}
+
+.rank-number {
+	font-size: 1.5rem;
+}
+
+.rank-wrapper {
+	display: grid;
+    grid-template-columns: 60px 3fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.rank-wrapper .avatar {
+	width: 60px;
+}
+
+.rank-wrapper .avatar img {
+	border: solid 1px white;
+	border-radius: 50%;
+}

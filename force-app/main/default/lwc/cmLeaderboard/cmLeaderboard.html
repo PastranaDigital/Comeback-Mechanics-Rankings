@@ -1,3 +1,18 @@
 <template>
-    
+	<div class="wrapper">
+		<div class="rank-wrapper">
+			<div></div>
+			<div></div>
+			<div class="rank-title third-column">Rank</div>
+		</div>
+		<template for:each={tournamentResults} for:item="result">
+			<div class="rank-wrapper" key={result.Id}>
+				<div class="avatar">
+					<img src={avatar} />
+				</div>
+				<div class="player-name">{result.CM_Player__r.Name}</div>
+				<div class="rank-number third-column">{result.CM_Tournament_Standing__c}</div>
+			</div>
+		</template>
+	</div>
 </template>

@@ -1,0 +1,15 @@
+/* Colors */
+
+* {
+	--color1: #010101;
+	--color2: #35C3C3;
+	--color3: #E12D79;
+	--color4: #9A2456;
+	--color-dark-1-rgb: 0, 0, 0;
+	--box-shadow-opacity: 0.35;
+	--color-dark-text: #181818;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}

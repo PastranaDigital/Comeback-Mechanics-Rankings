@@ -1,8 +1,11 @@
 <template>
 	<div class="wrapper">
 		<header>
+			<div class="bg-image">
+				<img src={img_logo} alt="Title" />
+			</div>
 			<div class="title">
-				<img src={img_logo} alt="Leaderboard" />
+				<span class="name">Comeback Mechanics</span>
 				<h1>{headerTitle}</h1>
 			</div>
 		</header>
@@ -13,130 +16,49 @@
 				<div class="loading_div">
 					<img src={img_logo} alt="Leaderboard" />
 				</div>
-				<!-- <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner> -->
 			</template>
 			<template if:false={loading}>
 				<template if:true={showLeaderboardPage}>
-					<c-twentytwo-leaderboard
-						incoming-scores={allScoreSubmissions}
-						incoming-athlete-scores={allAthleteScores}>
-					</c-twentytwo-leaderboard>
+					<c-cm-leaderboard
+						tournament-results={outboundModel.allTournamentResults}>
+					</c-cm-leaderboard>
 				</template>
 
-				<template if:true={showSubmitPage}>
-					<c-twentytwo-submit
-						oncallgetmodel={getModel}
-						oncallgotoleaderboard={handleLeaderboardClick}
-						oncallscrolltotop={scrollToTop}
-						current-workout={outboundModel.currentWorkout}
-						athlete-options={allAthleteOptions}
-						workout-results={allWorkoutResults}
-						athlete-info={allAthleteInfo}>
-					</c-twentytwo-submit>
+				<template if:true={showTagChallengePage}>
+					<c-cm-tag-challenge
+						tag-challenges={outboundModel.tagChallenges}>
+					</c-cm-tag-challenge>
 				</template>
 
-				<template if:true={showWorkoutPage}>
-					<c-twentytwo-workout
-						current-workout={outboundModel.currentWorkout}
-						workout-results={allWorkoutResults}>
-					</c-twentytwo-workout>
-				</template>
-
-				<template if:true={showMonthlyPage}>
-					<c-twentytwo-daily
-						oncallgetmodel={getModel}
-						oncallscrolltotop={scrollToTop}
-						current-challenge={outboundModel.currentChallenge}
-						athlete-options={allAthleteOptions}
-						challenge-entries={justChallengeEntries}>
-					</c-twentytwo-daily>
-					<!-- <c-twentytwo-monthly
-						oncallgetmodel={getModel}
-						oncallscrolltotop={scrollToTop}
-						current-challenge={outboundModel.currentChallenge}
-						athlete-options={allAthleteOptions}
-						challenge-totals={allAthleteInfo}
-						challenge-entries={justChallengeEntries}>
-					</c-twentytwo-monthly> -->
+				<template if:true={showTournamentsPage}>
+					<c-cm-tournaments
+						tournaments={outboundModel.tournaments}>
+					</c-cm-tournaments>
 				</template>
 			</template>
 		</div>
 
 		<div class="bottom-spacer"></div>
 		<footer>
-			<!-- <nav>
-				<a class="nav-btn" onclick={handleLeaderboardClick}>
-					<img src={nav_leaderboard} alt="Leaderboard" title="Leaderboard" />
-				</a>
-				<a class="nav-btn" onclick={handleSubmitClick}>
-					<img src={nav_score} alt="Submit" title="Submit" />
-				</a>
-				<a class="nav-btn" onclick={handleWorkoutClick}>
-					<img src={nav_workout} alt="Workout" title="Workout" />
-				</a>
-				<a class="nav-btn" onclick={handleMonthlyClick}>
-					<img src={nav_monthly} alt="Monthly Challenge" title="Monthly Challenge" />
-				</a>
-			</nav> -->
 			<nav>
-				<label for="leaderboard">
-					<input
-						type="radio"
-						id="leaderboard"
-						name="group"
-						class="nav-input leaderboard"
-						onclick={handleLeaderboardClick} />
-					<span class="nav-button">
-						<span class="nav-icon uil uil-award"></span>
-						<span class="nav-text">
-							•
-						</span>
-					</span>
-				</label>
-				<label for="submit">
-					<input
-						type="radio"
-						id="submit"
-						name="group"
-						class="nav-input submit"
-						onclick={handleSubmitClick} />
-					<span class="nav-button">
-						<span class="nav-icon uil uil-plus-square"></span>
-						<span class="nav-text">
-							•
-						</span>
-					</span>
-				</label>
-				<label for="workouts">
-					<input
-						type="radio"
-						id="workouts"
-						name="group"
-						class="nav-input workouts"
-						onclick={handleWorkoutClick} />
-					<span class="nav-button">
-						<span class="nav-icon uil uil-lock"></span>
-						<!-- <span class="nav-icon uil uil-file-alt"></span> -->
-						<span class="nav-text">
-							•
-						</span>
-					</span>
-				</label>
-				<label for="challenge">
-					<input
-						type="radio"
-						id="challenge"
-						name="group"
-						class="nav-input challenge"
-						onclick={handleMonthlyClick} />
-					<span class="nav-button">
-						<span class="nav-icon uil uil-clock"></span>
-						<!-- <span class="nav-icon uil uil-chart-growth-alt"></span> -->
-						<span class="nav-text">
-							•
-						</span>
-					</span>
-				</label>
+				<div id="leaderboard" class={leaderboardBtnClassList} onclick={handleLeaderboardClick}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="21" height="24" viewBox="0 0 21 24" fill="none">
+						<path d="M15.9069 2.76923H20.5223V24H0.214577V2.76923H4.82996V4.61538H15.9069V2.76923ZM3.90688 12H16.83V10.1538H3.90688V12ZM3.90688 19.3846H16.83V17.5385H3.90688V19.3846ZM6.67611 2.76923V0H14.0607V2.76923H6.67611Z" fill="white" />
+					</svg>
+					<!-- <span>Leaderboard</span> -->
+				</div>
+				<div id="tagChallenge" class={tagChallengeBtnClassList} onclick={handleTagChallengeClick}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M10.8537 0.0152054C11.3511 -0.0300554 11.8525 0.0259799 12.3277 0.179927C12.8029 0.333874 13.2419 0.582538 13.6183 0.910902L13.8031 1.08339L23.44 10.7217C24.1032 11.385 24.4894 12.2757 24.5203 13.2133C24.5511 14.1508 24.2244 15.065 23.6063 15.7706L23.44 15.948L16.4704 22.9177C15.8071 23.5809 14.9164 23.9671 13.9789 23.998C13.0414 24.0289 12.1272 23.7021 11.4216 23.084L11.2442 22.9177L1.60489 13.2794C1.25189 12.9264 0.974052 12.5056 0.78814 12.0423C0.602228 11.5789 0.512096 11.0828 0.523182 10.5837L0.536734 10.3311L1.11825 3.94296C1.1929 3.11969 1.54139 2.34521 2.10799 1.7433C2.6746 1.14139 3.42663 0.746805 4.24388 0.622603L4.46441 0.59673L10.8537 0.0152054ZM4.47222 3.95077C4.24336 4.17962 4.06182 4.45132 3.93797 4.75034C3.81411 5.04935 3.75037 5.36984 3.75037 5.69349C3.75037 6.01715 3.81411 6.33763 3.93797 6.63665C4.06182 6.93567 4.24336 7.20736 4.47222 7.43622C4.70107 7.66508 4.97276 7.84662 5.27177 7.97048C5.57078 8.09433 5.89126 8.15808 6.21491 8.15808C6.53855 8.15808 6.85903 8.09433 7.15804 7.97048C7.45705 7.84662 7.72874 7.66508 7.9576 7.43622C8.41979 6.97402 8.67944 6.34714 8.67944 5.69349C8.67944 5.03984 8.41979 4.41297 7.9576 3.95077C7.49541 3.48857 6.86854 3.22891 6.21491 3.22891C5.56127 3.22891 4.93441 3.48857 4.47222 3.95077Z" fill="white" />
+					</svg>
+					<!-- <span>Tag Challenge</span> -->
+				</div>
+				<div id="tournaments" class={tournamentsBtnClassList} onclick={handleTournamentsClick}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" viewBox="0 0 26 24" fill="none">
+						<path d="M20.7328 2.60463V0H5.5749V2.60463H0.52227V6.31579C0.52227 9.50526 2.90838 12.1238 5.98416 12.5457C6.42473 13.8376 7.20614 14.9866 8.24582 15.8711C9.2855 16.7555 10.5448 17.3427 11.8907 17.5705V18.9474C11.8907 19.6174 11.6245 20.26 11.1507 20.7337C10.677 21.2075 10.0344 21.4737 9.36438 21.4737H8.10122V24H18.2065V21.4737H16.9433C16.2733 21.4737 15.6307 21.2075 15.1569 20.7337C14.6832 20.26 14.417 19.6174 14.417 18.9474V17.5705C15.7629 17.3427 17.0222 16.7555 18.0619 15.8711C19.1016 14.9866 19.883 13.8376 20.3235 12.5457C23.3993 12.1238 25.7854 9.50526 25.7854 6.31579V2.60463H20.7328ZM3.04859 6.31579V5.13095H5.5749V9.888C4.83657 9.62618 4.19738 9.14226 3.74505 8.50267C3.29272 7.86308 3.04943 7.09916 3.04859 6.31579ZM23.2591 6.31579C23.2582 7.09929 23.0148 7.86332 22.5626 8.50309C22.1103 9.14286 21.4711 9.62705 20.7328 9.88926V5.13095H23.2591V6.31579Z" fill="white" />
+					</svg>
+					<!-- <span>Tournaments</span> -->
+				</div>
 			</nav>
 		</footer>
 
