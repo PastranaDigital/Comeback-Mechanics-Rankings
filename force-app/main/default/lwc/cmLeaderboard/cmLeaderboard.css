@@ -22,7 +22,8 @@
 
 .rank-wrapper {
 	display: grid;
-    grid-template-columns: 60px 3fr 1fr;
+    /* grid-template-columns: 60px 3fr 1fr; */
+	grid-template-columns: 60px auto 60px;
     align-items: center;
     gap: 1rem;
     padding-bottom: 0.5rem;

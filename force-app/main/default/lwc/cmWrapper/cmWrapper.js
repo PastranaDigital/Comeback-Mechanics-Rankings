@@ -12,6 +12,7 @@ export default class CmWrapper extends LightningElement {
 	
     connectedCallback() {
 		this.getModel();
+		this.pokeball = imageResource + '/Images/PokeBall.png'
     }
 	
 	getModel() {
@@ -37,6 +38,7 @@ export default class CmWrapper extends LightningElement {
 	showLeaderboardPage = false;
 	showTagChallengePage = false;
 	showTournamentsPage = false;
+	pokeball;
 	
 	setNav(string) {
 		//? reset values
@@ -49,7 +51,7 @@ export default class CmWrapper extends LightningElement {
 		this.loading = true;
 		const delay = setTimeout(() => {
 			this.loading = false;
-		}, 150);
+		}, 200);
 		
 		switch(string) {
 			case 'leaderboard':

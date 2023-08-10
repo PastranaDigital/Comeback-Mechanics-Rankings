@@ -1,5 +1,7 @@
 <template>
 	<div class="wrapper">
+		<div class="top-gradient"></div>
+		<div class="bottom-gradient"></div>
 		<header>
 			<div class="bg-image">
 				<img src={img_logo} alt="Title" />
@@ -9,12 +11,12 @@
 				<h1>{headerTitle}</h1>
 			</div>
 		</header>
-		<div class="top-spacer"></div>
+		<!-- <div class="top-spacer"></div> -->
 
 		<div class="content">
 			<template if:true={loading}>
 				<div class="loading_div">
-					<img src={img_logo} alt="Leaderboard" />
+					<img src={pokeball} alt="Leaderboard" />
 				</div>
 			</template>
 			<template if:false={loading}>
