@@ -15,6 +15,8 @@ export default class CmTournaments extends LightningElement {
 		for (const [key, value] of Object.entries(grouped)) {
 			let tempObj = {};
 
+			//TODO add ordinal indicators
+			//TODO make sure the order of the tournaments is calendar with newest at the top
 			tempObj.Name = `${value[0].CM_Tournament__r.Name} ${value[0].CM_Tournament__r.CM_Tournament_Type__c} Tournament`;
 			tempObj.LocationDetails = `${value[0].CM_Tournament__r.CM_Location__c} - ${value.length} Participants`;
 			tempObj.results = value;
