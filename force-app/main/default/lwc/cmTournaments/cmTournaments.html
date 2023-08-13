@@ -5,14 +5,14 @@
 				<span class="name">{tournament.Name}</span>
 				<span class="location">{tournament.LocationDetails}</span>
 				<div class="result-wrapper">
-					<!-- <template for:each={tournament} for:item="result">
+					<template for:each={tournament.results} for:item="result">
 						<div class="result-container" key={result.Id}>
-							<span class="place">{result.place}</span>
-							<span class="name">{result.name}</span>
-							<span class="type">{result.type}</span>
-							<span class="record">{result.record}</span>
+							<span class="place">{result.CM_Tournament_Standing__c}</span>
+							<span class="name">{result.CM_Player__r.Name}</span>
+							<span class="deck">{result.CM_Deck_Used__c}</span>
+							<span class="record">{result.CM_Record__c}</span>
 						</div>
-					</template> -->
+					</template>
 				</div>
 			</div>
 		</template>
