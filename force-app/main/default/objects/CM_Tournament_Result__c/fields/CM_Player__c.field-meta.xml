@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Player</label>
     <referenceTo>CM_Players__c</referenceTo>
-    <relationshipLabel>Tournament Results</relationshipLabel>
     <relationshipName>Tournament_Results</relationshipName>
     <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>

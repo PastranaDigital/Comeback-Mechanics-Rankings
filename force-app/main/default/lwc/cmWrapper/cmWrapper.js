@@ -1,14 +1,27 @@
 import { LightningElement } from 'lwc';
 import imageResource from '@salesforce/resourceUrl/CMImages';
 import getViewModel from '@salesforce/apex/CM_Controller.getViewModel';
-import { sortArray } from './helper.js';
+import * as h from 'c/jsHelpers';
 export default class CmWrapper extends LightningElement {
 	outboundModel = {};
 
 	//? outgoing variables to child components
 	allTournamentResults = [];
+	allPlayers = [];
 	
 	loading = true;
+
+	headerTitle = '';
+	showLeaderboardPage = false;
+	showTagChallengePage = false;
+	showTournamentsPage = false;
+	pokeball;
+	
+    labels = {
+        ComponentFooter: '2022 Vault',
+    };
+    
+    img_logo = imageResource + '/Images/Comeback_Mechanics_logo.png';
 	
     connectedCallback() {
 		this.getModel();
@@ -28,17 +41,12 @@ export default class CmWrapper extends LightningElement {
 			})
 			.finally(() => {
 				// this.buildAllTournamentResults(this.outboundModel.allTournamentResults);
+				this.allPlayers = this.buildAllPlayers(this.outboundModel.allPlayers);
 				
 				this.loading = false;
 				this.setNav('leaderboard');
 			});
 	}
-
-	headerTitle = '';
-	showLeaderboardPage = false;
-	showTagChallengePage = false;
-	showTournamentsPage = false;
-	pokeball;
 	
 	setNav(string) {
 		//? reset values
@@ -77,6 +85,23 @@ export default class CmWrapper extends LightningElement {
 		this.scrollToTop();
 	}
 
+	buildAllPlayers(arr){
+		let tempArray = [];
+		arr.forEach( row => {
+			let tempObj = {};
+
+			tempObj.Name = row.Name;
+			tempObj.CM_Avatar_File__c = imageResource + '/Images/' + row.CM_Avatar_File__c;
+			tempObj.CM_Rank__c = row.CM_Rank__c;
+			tempObj.Ordinal = h.getRankNumber(row.CM_Rank__c);
+			
+			tempArray.push(tempObj);
+		})
+		return tempArray;
+	}
+
+	//? HANDLERS
+
     handleLeaderboardClick() {
         this.setNav('leaderboard');
     }
@@ -89,43 +114,13 @@ export default class CmWrapper extends LightningElement {
         this.setNav('tournaments');
 	}
 
-	//? HELPER METHODS
-
-	getRankNumber(incomingRank) {
-        let RankNumber = incomingRank;
-        let lastDigit = RankNumber % 10;
-        let lastTwoDigits = RankNumber % 100;
-        if(lastTwoDigits == 11 || lastTwoDigits == 12 || lastTwoDigits == 13 ) {
-            lastDigit = 0;
-        }
-        switch (lastDigit) {
-            case 1:
-                RankNumber += 'st';
-                break;
-            case 2:
-                RankNumber += 'nd';
-                break;
-            case 3:
-                RankNumber += 'rd';
-                break;
-            default:
-                RankNumber += 'th';
-                break;
-        }
-        return RankNumber;
-    }
-
 	handleError(error) {
 		console.error(error);
 	}
-	
-    labels = {
-        ComponentFooter: '2022 Vault',
-    };
-    
-    img_logo = imageResource + '/Images/Comeback_Mechanics_logo.png';
+
+	//? HELPER METHODS
 
 	scrollToTop() {
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-	}
+	}	
 }

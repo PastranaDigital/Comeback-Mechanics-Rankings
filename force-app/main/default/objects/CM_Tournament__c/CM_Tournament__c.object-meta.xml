@@ -153,13 +153,13 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>CM Player</label>
+    <label>CM Tournament</label>
     <nameField>
-        <label>Players Name</label>
+        <label>CM Tournament Name</label>
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
-    <pluralLabel>CM Players</pluralLabel>
+    <pluralLabel>CM Tournaments</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

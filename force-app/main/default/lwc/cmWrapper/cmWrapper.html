@@ -22,7 +22,7 @@
 			<template if:false={loading}>
 				<template if:true={showLeaderboardPage}>
 					<c-cm-leaderboard
-						tournament-results={outboundModel.allTournamentResults}>
+						all-players={allPlayers}>
 					</c-cm-leaderboard>
 				</template>
 
@@ -34,7 +34,7 @@
 
 				<template if:true={showTournamentsPage}>
 					<c-cm-tournaments
-						tournaments={outboundModel.tournaments}>
+						all-tournament-results={outboundModel.allTournamentResults}>
 					</c-cm-tournaments>
 				</template>
 			</template>

@@ -20,6 +20,11 @@
 	font-size: 1.5rem;
 }
 
+.rank-number .ordinal {
+	font-size: 0.75rem;
+	vertical-align: super;
+}
+
 .rank-wrapper {
 	display: grid;
     /* grid-template-columns: 60px 3fr 1fr; */

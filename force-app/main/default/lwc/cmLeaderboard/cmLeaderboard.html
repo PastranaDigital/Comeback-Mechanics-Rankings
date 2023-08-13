@@ -5,13 +5,13 @@
 			<div></div>
 			<div class="rank-title third-column">Rank</div>
 		</div>
-		<template for:each={tournamentResults} for:item="result">
-			<div class="rank-wrapper" key={result.Id}>
+		<template for:each={allPlayers} for:item="player">
+			<div class="rank-wrapper" key={player.Id} onclick={handleModal}>
 				<div class="avatar">
-					<img src={avatar} />
+					<img id={player.Id} src={player.CM_Avatar_File__c} />
 				</div>
-				<div class="player-name">{result.CM_Player__r.Name}</div>
-				<div class="rank-number third-column">{result.CM_Tournament_Standing__c}</div>
+				<div class="player-name">{player.Name}</div>
+				<div class="rank-number third-column">{player.CM_Rank__c}<span class="ordinal">{player.Ordinal}</span></div>
 			</div>
 		</template>
 	</div>
