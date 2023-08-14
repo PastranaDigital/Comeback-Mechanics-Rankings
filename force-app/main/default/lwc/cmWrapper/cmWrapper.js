@@ -85,12 +85,17 @@ export default class CmWrapper extends LightningElement {
 		this.scrollToTop();
 	}
 
-	buildAllPlayers(arr){
+	buildAllPlayers(arr) {
 		let tempArray = [];
 		arr.forEach( row => {
 			let tempObj = {};
-
+			
+			//? combobox
+			tempObj.label = row.Name;
+			tempObj.value = row.Id;
+			
 			tempObj.Name = row.Name;
+			tempObj.Id = row.Id;
 			tempObj.CM_Avatar_File__c = imageResource + '/Images/' + row.CM_Avatar_File__c;
 			tempObj.CM_Rank__c = row.CM_Rank__c;
 			tempObj.Ordinal = h.getRankNumber(row.CM_Rank__c);

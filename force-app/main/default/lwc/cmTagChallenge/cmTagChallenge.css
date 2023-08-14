@@ -1,0 +1,25 @@
+@import 'c/cmCSS';
+
+.form-wrapper {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    gap: 0.5rem;
+}
+
+.game-results {
+	text-align: center;
+    min-height: 3rem;
+    font-size: 0.75rem;
+}
+
+lightning-button {
+	margin: 0 auto;
+	/* --sds-c-button-brand-color-background: var(--color2);
+	--sds-c-button-brand-text-color: white; */
+}
+
+.error {
+	color: #ffd200;
+}

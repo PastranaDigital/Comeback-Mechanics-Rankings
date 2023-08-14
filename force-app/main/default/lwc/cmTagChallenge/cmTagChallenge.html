@@ -1,4 +1,39 @@
 <template>
+	<div class="frosted form-wrapper">
+		<lightning-combobox
+			label="Winner"
+			name="Winner"
+			placeholder="Select the Winner"
+			class="slds-p-left_medium slds-p-vertical_small"
+			field-level-help=""
+			value={winner}
+			options={allPlayers}
+			onchange={handleWinnerPlayerChange}
+			required></lightning-combobox>
+		<lightning-combobox
+			label="Loser"
+			name="Loser"
+			placeholder="Select the Loser"
+			class="slds-p-left_medium slds-p-vertical_small"
+			field-level-help=""
+			value={loser}
+			options={allPlayers}
+			onchange={handleLoserPlayerChange}
+			required></lightning-combobox>
+		<template if:true={showError}>
+			<span class="game-results error">Players cannot match. Please correct.</span>
+		</template>
+		<template if:false={showError}>
+			<span class="game-results">{winnerResults}<br>{loserResults}</span>
+		</template>
+		<lightning-button
+			variant="brand"
+			label="Submit Game Results"
+			title="Submit Game Results"
+			onclick={handleSubmitClick}
+			disabled={deactivateSubmit}
+			class="slds-m-around_medium"></lightning-button>
+	</div>
 	<template for:each={tagChallenges} for:item="tagChallenge">
 		<div key={tagChallenge.Id}>{tagChallenge.Name}</div>
 	</template>
