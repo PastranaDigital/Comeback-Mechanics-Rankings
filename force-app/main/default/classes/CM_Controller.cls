@@ -9,6 +9,25 @@ public without sharing class CM_Controller {
 			CM_Losing_Player_s_New_Rank__c = ch.losersNewRank
 		);
 		insert tag;
+
+		//? get Player's data (ordered in previous rank ASC)
+		List<CM_Players__c> players = [
+			SELECT Id, Name, CM_Rank__c
+			FROM CM_Players__c
+			WHERE Id =:ch.winnersId OR Id =: ch.losersId
+			ORDER BY CM_Rank__c ASC
+		];
+		//? find loser's record
+		CM_Players__c loser = new CM_Players__c();
+		for (CM_Players__c player : players) {
+			if (player.Id == ch.losersId) {
+				loser = player;
+			}
+		}
+		System.debug('loser::: ' + JSON.serializePretty(loser));
+
+
+
 		return tag;
 	}
 

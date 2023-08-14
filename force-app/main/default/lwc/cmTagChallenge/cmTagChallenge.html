@@ -34,7 +34,13 @@
 			disabled={deactivateSubmit}
 			class="slds-m-around_medium"></lightning-button>
 	</div>
-	<template for:each={tagChallenges} for:item="tagChallenge">
-		<div key={tagChallenge.Id}>{tagChallenge.Name}</div>
-	</template>
+	<div class="challenge-title">Tag Challenge History</div>
+	<div class="challenge-wrapper">
+		<template for:each={tagChallenges} for:item="tagChallenge">
+			<div key={tagChallenge.Id} class="challenge-content">
+				<span class="date">{tagChallenge.date}</span>
+				<span class="statement">{tagChallenge.winner} ({tagChallenge.losersRank}{tagChallenge.loserOrdinal}) defeated {tagChallenge.loser} ({tagChallenge.winnersRank}{tagChallenge.winnerOrdinal})</span>
+			</div>
+		</template>
+	</div>
 </template>

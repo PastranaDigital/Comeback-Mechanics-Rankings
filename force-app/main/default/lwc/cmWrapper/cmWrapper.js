@@ -6,8 +6,9 @@ export default class CmWrapper extends LightningElement {
 	outboundModel = {};
 
 	//? outgoing variables to child components
-	allTournamentResults = [];
 	allPlayers = [];
+	allTagChallenges = [];
+	allTournamentResults = [];
 	
 	loading = true;
 
@@ -33,8 +34,9 @@ export default class CmWrapper extends LightningElement {
 		this.loading = true;
 		getViewModel()
 			.then((result) => {
-				console.log('ViewModel: ', result);
+				// console.log('ViewModel: ', result);
 				this.outboundModel = Object.assign({}, result.outboundModel);
+				console.log('this.outboundModel: ', this.outboundModel);
 			})
 			.catch((error) => {
 				this.handleError(error);
@@ -42,6 +44,7 @@ export default class CmWrapper extends LightningElement {
 			.finally(() => {
 				// this.buildAllTournamentResults(this.outboundModel.allTournamentResults);
 				this.allPlayers = this.buildAllPlayers(this.outboundModel.allPlayers);
+				this.allTagChallenges = this.buildAllTagChallenges(this.outboundModel.allTagChallenges);
 				
 				this.loading = false;
 				this.setNav('leaderboard');
@@ -99,6 +102,25 @@ export default class CmWrapper extends LightningElement {
 			tempObj.CM_Avatar_File__c = imageResource + '/Images/' + row.CM_Avatar_File__c;
 			tempObj.CM_Rank__c = row.CM_Rank__c;
 			tempObj.Ordinal = h.getRankNumber(row.CM_Rank__c);
+			
+			tempArray.push(tempObj);
+		})
+		return tempArray;
+	}
+
+	buildAllTagChallenges(arr) {
+		let tempArray = [];
+		arr.forEach( row => {
+			let tempObj = {};
+						
+			tempObj.Id = row.Id;
+			tempObj.date = row.CM_Date_of_Event__c;
+			tempObj.winner = row.CM_Winning_Player__r.Name;
+			tempObj.winnersRank = row.CM_Winning_Player_s_New_Rank__c;
+			tempObj.winnerOrdinal = h.getRankNumber(row.CM_Winning_Player_s_New_Rank__c);
+			tempObj.loser = row.CM_Losing_Player__r.Name;
+			tempObj.losersRank = row.CM_Losing_Player_s_New_Rank__c;
+			tempObj.loserOrdinal = h.getRankNumber(row.CM_Losing_Player_s_New_Rank__c);
 			
 			tempArray.push(tempObj);
 		})

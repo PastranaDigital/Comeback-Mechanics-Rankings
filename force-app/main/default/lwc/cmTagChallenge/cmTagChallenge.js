@@ -1,9 +1,21 @@
 import { LightningElement, api } from 'lwc';
+import createTagChallenge from '@salesforce/apex/CM_Controller.createTagChallenge';
 import * as h from 'c/jsHelpers';
 
 export default class CmTagChallenge extends LightningElement {
 	@api allPlayers;
 	@api tagChallenges;
+
+	/*
+	tempObj.Id
+	tempObj.date
+	tempObj.winner
+	tempObj.winnersRank
+	tempObj.winnerOrdinal
+	tempObj.loser
+	tempObj.losersRank
+	tempObj.loserOrdinal
+	*/
 
 	winner;
 	loser;
@@ -27,6 +39,7 @@ export default class CmTagChallenge extends LightningElement {
 	connectedCallback() {
 		console.log('this.allPlayers: ', this.allPlayers);
 		this.todaysDate = new Date();
+		console.log('this.tagChallenges: ', this.tagChallenges);
 		this.tagRecordWrapper.dateOfEvent = this.todaysDate;
 	}
 
@@ -73,6 +86,8 @@ export default class CmTagChallenge extends LightningElement {
 	}
 
 	handleSubmitClick() {
-
+		let result = createTagChallenge({ch: this.tagRecordWrapper});
+		this.deactivateSubmit = true;
+		console.log('result: ', result);
 	}
 }
