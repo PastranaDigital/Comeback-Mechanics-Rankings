@@ -47,10 +47,15 @@
 	</div>
 	<div class="challenge-title">Tag Challenge History</div>
 	<div class="challenge-wrapper">
-		<template for:each={tagChallenges} for:item="tagChallenge">
-			<div key={tagChallenge.Id} class="challenge-content">
-				<span class="date">{tagChallenge.date}</span>
-				<span class="statement">{tagChallenge.winner} ({tagChallenge.losersRank}{tagChallenge.loserOrdinal}) defeated {tagChallenge.loser} ({tagChallenge.winnersRank}{tagChallenge.winnerOrdinal})</span>
+		<template for:each={tagChallenges} for:item="tc">
+			<div key={tc.Id} class="challenge-content">
+				<span class="date">{tc.date}</span>
+				<template if:true={tc.CM_Defended_Tag__c}>
+					<span class="statement">{tc.winner} defended {tc.winnersRank}{tc.winnerOrdinal} vs {tc.loser} ({tc.losersRank}{tc.loserOrdinal})</span>
+				</template>
+				<template if:false={tc.CM_Defended_Tag__c}>
+					<span class="statement">{tc.winner} ({tc.losersRank}{tc.loserOrdinal}) defeated {tc.loser} ({tc.winnersRank}{tc.winnerOrdinal})</span>
+				</template>
 			</div>
 		</template>
 	</div>

@@ -121,6 +121,7 @@ export default class CmWrapper extends LightningElement {
 			tempObj.loser = row.CM_Losing_Player__r.Name;
 			tempObj.losersRank = row.CM_Losing_Player_s_New_Rank__c;
 			tempObj.loserOrdinal = h.getRankNumber(row.CM_Losing_Player_s_New_Rank__c);
+			tempObj.CM_Defended_Tag__c = row.CM_Defended_Tag__c;
 			
 			tempArray.push(tempObj);
 		})

@@ -32,6 +32,7 @@ export default class CmTagChallenge extends LightningElement {
 		CM_Winning_Player_s_New_Rank__c: '',
 		CM_Losing_Player__c: '',
 		CM_Losing_Player_s_New_Rank__c: '',
+		CM_Defended_Tag__c: false
 	};
 
 
@@ -126,6 +127,7 @@ export default class CmTagChallenge extends LightningElement {
 		if (wRank > lRank) {
 			this.tagRecordWrapper.CM_Winning_Player_s_New_Rank__c = lRank;
 			this.tagRecordWrapper.CM_Losing_Player_s_New_Rank__c = wRank;
+			this.tagRecordWrapper.CM_Defended_Tag__c = true;
 		}
 	}
 

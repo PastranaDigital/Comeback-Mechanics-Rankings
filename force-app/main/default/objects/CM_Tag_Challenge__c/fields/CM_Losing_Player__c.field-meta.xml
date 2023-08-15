@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Losing Player</label>
     <referenceTo>CM_Players__c</referenceTo>
-    <relationshipLabel>Tag Challenges (Losing Player)</relationshipLabel>
     <relationshipName>Tag_Challenges1</relationshipName>
     <required>false</required>
     <trackHistory>false</trackHistory>

@@ -115,7 +115,7 @@ public without sharing class CM_Controller {
 	@AuraEnabled
 	public static List<CM_Tag_Challenge__c> getAllTagChallenges() {
 		return [
-            SELECT Id, CM_Date_of_Event__c, CM_Winning_Player__c, CM_Winning_Player__r.Name, CM_Winning_Player_s_New_Rank__c, CM_Losing_Player__c, CM_Losing_Player__r.Name, CM_Losing_Player_s_New_Rank__c, CreatedDate  
+            SELECT Id, CM_Date_of_Event__c, CM_Winning_Player__c, CM_Winning_Player__r.Name, CM_Winning_Player_s_New_Rank__c, CM_Losing_Player__c, CM_Losing_Player__r.Name, CM_Losing_Player_s_New_Rank__c, CreatedDate, CM_Defended_Tag__c 
 			FROM CM_Tag_Challenge__c 
 			ORDER BY Name DESC];
 	}
