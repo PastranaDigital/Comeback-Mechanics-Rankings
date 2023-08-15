@@ -13,16 +13,16 @@
 [x] - points earned
 [x] - tournament type (GLC or Standard)
 
-[] - pull all tag challenges & display them
-[] - Creating a Tag Challenge updates ranks
-[] - after creating a tag challenge, that page updates with new history log???
-
+[x] - pull all tag challenges & display them
+[x] - Creating a Tag Challenge updates ranks
+[x] - after creating a tag challenge, that page updates with new history log
+[] - if someone defends their tag, the history needs to reflect that (maybe a checkbox if defended?)
 
 ## Order of Operations for updating Rank
 
 (the thinking is that these will be created in an order that makes the trigger unnecessary for TC records)
 
-[ ] Path #1
+[x] Path #1
 User creates a Tag Challenge record on LWC
 apex method handles the creating of the TC record & also updates both players' ranks
 

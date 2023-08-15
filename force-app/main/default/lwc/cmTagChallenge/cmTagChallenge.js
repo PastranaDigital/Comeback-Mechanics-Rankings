@@ -97,6 +97,7 @@ export default class CmTagChallenge extends LightningElement {
 	handleSubmitClick() {
 		this.deactivateSubmit = true;
 		this.loading = true;
+		this.checkRanksForPlayers();
 		createTagChallenge({ tc: this.tagRecordWrapper })
 		.then(result => {
 			this.message = result;
@@ -115,6 +116,17 @@ export default class CmTagChallenge extends LightningElement {
 		.finally(() => {
 			this.refreshScores();
 		});
+	}
+
+	checkRanksForPlayers() {
+		//? winners new rank should be less than the losers new rank
+		let wRank = this.tagRecordWrapper.CM_Winning_Player_s_New_Rank__c;
+		let lRank = this.tagRecordWrapper.CM_Losing_Player_s_New_Rank__c;
+
+		if (wRank > lRank) {
+			this.tagRecordWrapper.CM_Winning_Player_s_New_Rank__c = lRank;
+			this.tagRecordWrapper.CM_Losing_Player_s_New_Rank__c = wRank;
+		}
 	}
 
 	refreshScores() {
