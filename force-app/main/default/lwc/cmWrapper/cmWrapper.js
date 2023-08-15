@@ -114,7 +114,7 @@ export default class CmWrapper extends LightningElement {
 			let tempObj = {};
 						
 			tempObj.Id = row.Id;
-			tempObj.date = row.CM_Date_of_Event__c;
+			tempObj.date = this.flipDate(row.CM_Date_of_Event__c);
 			tempObj.winner = row.CM_Winning_Player__r.Name;
 			tempObj.winnersRank = row.CM_Winning_Player_s_New_Rank__c;
 			tempObj.winnerOrdinal = h.getRankNumber(row.CM_Winning_Player_s_New_Rank__c);
@@ -147,6 +147,12 @@ export default class CmWrapper extends LightningElement {
 	}
 
 	//? HELPER METHODS
+
+	flipDate(d) {
+		//? incoming as 2023-08-12
+		let dArray = d.split('-');
+		return `${dArray[1]}/${dArray[2]}/${dArray[0]}`;
+	}
 
 	scrollToTop() {
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
