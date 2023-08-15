@@ -1,34 +1,50 @@
 public without sharing class CM_Controller {
     @AuraEnabled
-    public static CM_Tag_Challenge__c createTagChallenge(Challenge ch) {
-		CM_Tag_Challenge__c tag = new CM_Tag_Challenge__c(
-			CM_Date_of_Event__c = ch.dateOfEvent,
-			CM_Winning_Player__c = ch.winnersId,
-			CM_Winning_Player_s_New_Rank__c = ch.winnersNewRank,
-			CM_Losing_Player__c = ch.losersId,
-			CM_Losing_Player_s_New_Rank__c = ch.losersNewRank
-		);
-		insert tag;
+    public static CM_Tag_Challenge__c createTagChallenge(CM_Tag_Challenge__c tc) {
+		// CM_Tag_Challenge__c tag = new CM_Tag_Challenge__c(
+		// 	CM_Date_of_Event__c = ch.dateOfEvent,
+		// 	CM_Winning_Player__c = ch.winnersId,
+		// 	CM_Winning_Player_s_New_Rank__c = ch.winnersNewRank,
+		// 	CM_Losing_Player__c = ch.losersId,
+		// 	CM_Losing_Player_s_New_Rank__c = ch.losersNewRank
+		// );
+		if (tc != null) {
+			insert tc;
+		}
 
 		//? get Player's data (ordered in previous rank ASC)
 		List<CM_Players__c> players = [
 			SELECT Id, Name, CM_Rank__c
 			FROM CM_Players__c
-			WHERE Id =:ch.winnersId OR Id =: ch.losersId
+			WHERE Id =:tc.CM_Winning_Player__c OR Id =: tc.CM_Losing_Player__c
 			ORDER BY CM_Rank__c ASC
 		];
 		//? find loser's record
 		CM_Players__c loser = new CM_Players__c();
 		for (CM_Players__c player : players) {
-			if (player.Id == ch.losersId) {
+			if (player.Id == tc.CM_Losing_Player__c) {
 				loser = player;
 			}
 		}
+		//? update loser's rank
+		loser.CM_Rank__c = tc.CM_Losing_Player_s_New_Rank__c;
+		update loser;
 		System.debug('loser::: ' + JSON.serializePretty(loser));
 
+		//? find winner's record
+		CM_Players__c winner = new CM_Players__c();
+		for (CM_Players__c player : players) {
+			if (player.Id == tc.CM_Winning_Player__c) {
+				winner = player;
+			}
+		}
+		//? update winner's rank
+		winner.CM_Rank__c = tc.CM_Winning_Player_s_New_Rank__c;
+		update winner;
+		System.debug('winner::: ' + JSON.serializePretty(winner));
 
 
-		return tag;
+        return tc;
 	}
 
 	public class Challenge {
@@ -101,7 +117,7 @@ public without sharing class CM_Controller {
 		return [
             SELECT Id, CM_Date_of_Event__c, CM_Winning_Player__c, CM_Winning_Player__r.Name, CM_Winning_Player_s_New_Rank__c, CM_Losing_Player__c, CM_Losing_Player__r.Name, CM_Losing_Player_s_New_Rank__c, CreatedDate  
 			FROM CM_Tag_Challenge__c 
-			ORDER BY CM_Date_of_Event__c DESC];
+			ORDER BY Name DESC];
 	}
 
 	//? Helper class

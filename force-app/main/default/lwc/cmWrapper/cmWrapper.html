@@ -28,6 +28,9 @@
 
 				<template if:true={showTagChallengePage}>
 					<c-cm-tag-challenge
+						oncallscrolltotop={scrollToTop}
+						oncallgetmodel={getModel}
+						oncallgotoleaderboard={handleLeaderboardClick}
 						all-players={allPlayers}
 						tag-challenges={allTagChallenges}>
 					</c-cm-tag-challenge>
@@ -41,7 +44,7 @@
 			</template>
 		</div>
 
-		<div class="bottom-spacer"></div>
+		<!-- <div class="bottom-spacer"></div> -->
 		<footer>
 			<nav>
 				<div id="leaderboard" class={leaderboardBtnClassList} onclick={handleLeaderboardClick}>

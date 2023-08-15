@@ -22,9 +22,18 @@ export default class CmTagChallenge extends LightningElement {
 	todaysDate;
 	winnerResults = '';
 	loserResults = '';
+	loading = false;
 	deactivateSubmit = true;
 	showError = false;
-	tagRecordWrapper = {};
+	errorSubmitting = false;
+	tagRecordWrapper = {
+		CM_Date_of_Event__c: '',
+		CM_Winning_Player__c: '',
+		CM_Winning_Player_s_New_Rank__c: '',
+		CM_Losing_Player__c: '',
+		CM_Losing_Player_s_New_Rank__c: '',
+	};
+
 
 /*
 	public class Challenge {
@@ -40,7 +49,7 @@ export default class CmTagChallenge extends LightningElement {
 		console.log('this.allPlayers: ', this.allPlayers);
 		this.todaysDate = new Date();
 		console.log('this.tagChallenges: ', this.tagChallenges);
-		this.tagRecordWrapper.dateOfEvent = this.todaysDate;
+		this.tagRecordWrapper.CM_Date_of_Event__c = this.todaysDate;
 	}
 
 	getButtonState() {
@@ -53,7 +62,7 @@ export default class CmTagChallenge extends LightningElement {
 	}
 
 	checkIfSamePlayer() {
-		if (this.tagRecordWrapper.winnersId == this.tagRecordWrapper.losersId) {
+		if (this.tagRecordWrapper.CM_Winning_Player__c == this.tagRecordWrapper.CM_Losing_Player__c) {
 			this.showError = true;
 			this.deactivateSubmit = true;
 		} else {
@@ -64,8 +73,8 @@ export default class CmTagChallenge extends LightningElement {
 	handleWinnerPlayerChange(event) {
 		let playerObj = {};
 		playerObj = this.getFullPlayerInfo(event.detail.value);
-		this.tagRecordWrapper.winnersId = playerObj.Id;
-		this.tagRecordWrapper.losersNewRank = playerObj.CM_Rank__c;
+		this.tagRecordWrapper.CM_Winning_Player__c = playerObj.Id;
+		this.tagRecordWrapper.CM_Losing_Player_s_New_Rank__c = playerObj.CM_Rank__c;
 
 		this.winnerResults = `${playerObj.Name} was ${playerObj.CM_Rank__c}${playerObj.Ordinal}`;
 		console.log('this.tagRecordWrapper: ', JSON.parse(JSON.stringify(this.tagRecordWrapper)));
@@ -76,8 +85,8 @@ export default class CmTagChallenge extends LightningElement {
 	handleLoserPlayerChange(event) {
 		let playerObj = {};
 		playerObj = this.getFullPlayerInfo(event.detail.value);
-		this.tagRecordWrapper.losersId = playerObj.Id;
-		this.tagRecordWrapper.winnersNewRank = playerObj.CM_Rank__c;
+		this.tagRecordWrapper.CM_Losing_Player__c = playerObj.Id;
+		this.tagRecordWrapper.CM_Winning_Player_s_New_Rank__c = playerObj.CM_Rank__c;
 
 		this.loserResults = `${playerObj.Name} was ${playerObj.CM_Rank__c}${playerObj.Ordinal}`;
 		console.log('this.tagRecordWrapper: ', JSON.parse(JSON.stringify(this.tagRecordWrapper)));
@@ -86,8 +95,52 @@ export default class CmTagChallenge extends LightningElement {
 	}
 
 	handleSubmitClick() {
-		let result = createTagChallenge({ch: this.tagRecordWrapper});
 		this.deactivateSubmit = true;
-		console.log('result: ', result);
+		this.loading = true;
+		createTagChallenge({ tc: this.tagRecordWrapper })
+		.then(result => {
+			this.message = result;
+			this.error = undefined;
+			this.scoreSubmitted = true;                
+			// console.log(JSON.stringify(result));
+			console.log("result: ", this.message);
+			// this.refreshScores();
+		})
+		.catch(error => {
+			this.message = undefined;
+			this.error = error;
+			this.errorSubmitting = true;
+			console.error("error", JSON.stringify(this.error));
+		})
+		.finally(() => {
+			this.refreshScores();
+		});
+	}
+
+	refreshScores() {
+		const custEvent1 = new CustomEvent(
+			'callscrolltotop', {
+				detail: 'payload'
+			});
+		this.dispatchEvent(custEvent1);
+		this.delay(2500).then(() => {
+			this.loading = false;
+			console.log('refreshing to Parent...');
+
+			const custEvent2 = new CustomEvent(
+				'callgetmodel', {
+					detail: 'payload'
+				});
+			this.dispatchEvent(custEvent2);
+			// const custEvent3 = new CustomEvent(
+			// 	'callgotoleaderboard', {
+			// 		detail: 'payload' 
+			// 	});
+			// this.dispatchEvent(custEvent3);
+		});
+	}
+
+	delay(time) {
+		return new Promise(resolve => setTimeout(resolve, time));
 	}
 }
