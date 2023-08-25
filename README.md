@@ -16,7 +16,9 @@
 [x] - pull all tag challenges & display them
 [x] - Creating a Tag Challenge updates ranks
 [x] - after creating a tag challenge, that page updates with new history log
-[] - if someone defends their tag, the history needs to reflect that (maybe a checkbox if defended?)
+[x] - if someone defends their tag, the history needs to reflect that (maybe a checkbox if defended?)
+
+[] - clicking on a player's row opens their pop-up modal
 
 ## Order of Operations for updating Rank
 
