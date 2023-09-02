@@ -51,7 +51,7 @@
 			<div key={tc.Id} class="challenge-content">
 				<span class="date">{tc.date}</span>
 				<template if:true={tc.CM_Defended_Tag__c}>
-					<span class="statement">{tc.winner} defended {tc.winnersRank}{tc.winnerOrdinal} vs {tc.loser} ({tc.losersRank}{tc.loserOrdinal})</span>
+					<span class="statement">🛡 {tc.winner} ({tc.winnersRank}{tc.winnerOrdinal}) defended vs {tc.loser} ({tc.losersRank}{tc.loserOrdinal})</span>
 				</template>
 				<template if:false={tc.CM_Defended_Tag__c}>
 					<span class="statement">{tc.winner} ({tc.losersRank}{tc.loserOrdinal}) defeated {tc.loser} ({tc.winnersRank}{tc.winnerOrdinal})</span>

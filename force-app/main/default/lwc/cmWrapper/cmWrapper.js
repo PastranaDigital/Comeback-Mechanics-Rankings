@@ -7,6 +7,7 @@ export default class CmWrapper extends LightningElement {
 
 	//? outgoing variables to child components
 	allPlayers = [];
+	allPlayerOptions = [];
 	allTagChallenges = [];
 	allTournamentResults = [];
 	
@@ -44,6 +45,7 @@ export default class CmWrapper extends LightningElement {
 			.finally(() => {
 				// this.buildAllTournamentResults(this.outboundModel.allTournamentResults);
 				this.allPlayers = this.buildAllPlayers(this.outboundModel.allPlayers);
+				this.allPlayerOptions = this.buildAllPlayerOptions(this.outboundModel.allPlayers);
 				this.allTagChallenges = this.buildAllTagChallenges(this.outboundModel.allTagChallenges);
 				
 				this.loading = false;
@@ -93,7 +95,22 @@ export default class CmWrapper extends LightningElement {
 		arr.forEach( row => {
 			let tempObj = {};
 			
-			//? combobox
+			tempObj.Name = row.Name;
+			tempObj.Id = row.Id;
+			tempObj.CM_Avatar_File__c = imageResource + '/Images/' + row.CM_Avatar_File__c;
+			tempObj.CM_Rank__c = row.CM_Rank__c;
+			tempObj.Ordinal = h.getRankNumber(row.CM_Rank__c);
+			
+			tempArray.push(tempObj);
+		})
+		return tempArray;
+	}
+
+	buildAllPlayerOptions(arr) {
+		if (!arr) return;
+		let tempArray = [];
+        arr.forEach(row => {
+			let tempObj = {};
 			tempObj.label = row.Name;
 			tempObj.value = row.Id;
 			
@@ -104,7 +121,8 @@ export default class CmWrapper extends LightningElement {
 			tempObj.Ordinal = h.getRankNumber(row.CM_Rank__c);
 			
 			tempArray.push(tempObj);
-		})
+		});
+		h.sortArray(tempArray, 'label');
 		return tempArray;
 	}
 
