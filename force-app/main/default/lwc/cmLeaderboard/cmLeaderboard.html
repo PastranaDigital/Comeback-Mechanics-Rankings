@@ -6,13 +6,16 @@
 			<div class="rank-title third-column">Rank</div>
 		</div>
 		<template for:each={allPlayers} for:item="player">
-			<div class="rank-wrapper" key={player.Id} onclick={handleModal}>
-				<div class="avatar">
+			<div class="rank-wrapper" key={player.Id} id={player.Id} onclick={handleModal}>
+				<div class="avatar" id={player.Id}>
 					<img id={player.Id} src={player.CM_Avatar_File__c} />
 				</div>
-				<div class="player-name">{player.Name}</div>
-				<div class="rank-number third-column">{player.CM_Rank__c}<span class="ordinal">{player.Ordinal}</span></div>
+				<div class="player-name" id={player.Id}>{player.Name}</div>
+				<div class="rank-number third-column" id={player.Id}>{player.CM_Rank__c}<span class="ordinal" id={player.Id}>{player.Ordinal}</span></div>
 			</div>
+		</template>
+		<template if:true={selectedPlayer}>
+			<c-cm-modal selected-player={selectedPlayer} onclosemodal={handleCloseModal}></c-cm-modal>
 		</template>
 	</div>
 </template>

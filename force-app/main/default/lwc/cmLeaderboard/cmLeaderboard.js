@@ -1,14 +1,21 @@
 import { LightningElement, api } from 'lwc';
-// import imageResource from '@salesforce/resourceUrl/CMImages';
 
 export default class CmLeaderboard extends LightningElement {
 	@api allPlayers;
-
-	// connectedCallback() {
-	// 	this.avatar = imageResource + '/Images/default.png';
-	// }
+	selectedPlayer;
 
 	handleModal(event) {
-		console.log('event: ', JSON.parse(JSON.stringify(event)));
+		this.playerId = (event.target.id).split('-');
+        this.playerId = this.playerId[0];
+		console.log('this.playerId: ', this.playerId);
+		this.selectedPlayer = this.allPlayers.filter(row => {
+			if (row.Id == this.playerId) return row;
+		})
+		this.selectedPlayer = this.selectedPlayer[0];
+		console.log('this.selectedPlayer: ', JSON.parse(JSON.stringify(this.selectedPlayer)));
+	}
+
+	handleCloseModal() {
+		this.selectedPlayer = null;
 	}
 }

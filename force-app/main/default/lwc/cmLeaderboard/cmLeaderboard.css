@@ -1,7 +1,9 @@
 .wrapper {
 	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    position: relative;
 }
 
 .third-column {
