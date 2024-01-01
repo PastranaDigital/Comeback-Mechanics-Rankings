@@ -8,43 +8,80 @@ public without sharing class CM_Controller {
     // 	CM_Losing_Player__c = ch.losersId,
     // 	CM_Losing_Player_s_New_Rank__c = ch.losersNewRank
     // );
+
+    System.debug('tc1::: ' + tc);
     if (tc != null) {
       insert tc;
     }
+    System.debug('tc2::: ' + tc);
 
-    //? get Player's data (ordered in previous rank ASC)
-    List<CM_Players__c> players = [
-      SELECT Id, Name, CM_Rank__c
-      FROM CM_Players__c
-      WHERE Id = :tc.CM_Winning_Player__c OR Id = :tc.CM_Losing_Player__c
-      ORDER BY CM_Rank__c ASC
-    ];
-    //? find loser's record
-    CM_Players__c loser = new CM_Players__c();
-    for (CM_Players__c player : players) {
-      if (player.Id == tc.CM_Losing_Player__c) {
-        loser = player;
-      }
-    }
-    //? update loser's rank
-    loser.CM_Rank__c = tc.CM_Losing_Player_s_New_Rank__c;
-    update loser;
-    System.debug('loser::: ' + JSON.serializePretty(loser));
-
-    //? find winner's record
-    CM_Players__c winner = new CM_Players__c();
-    for (CM_Players__c player : players) {
-      if (player.Id == tc.CM_Winning_Player__c) {
-        winner = player;
-      }
-    }
-    //? update winner's rank
-    winner.CM_Rank__c = tc.CM_Winning_Player_s_New_Rank__c;
-    update winner;
-    System.debug('winner::: ' + JSON.serializePretty(winner));
-
+    //? insert Player A ELO receipt
+    //? insert Player B ELO receipt
     return tc;
   }
+
+  // 	//? Player A = winner
+  // 	//? Player B = loser
+
+  //     //? get Player's data (ordered in previous rank ASC)
+  //     List<CM_Players__c> players = [
+  //       SELECT Id, Name, CM_Rank__c, CM_ELO_Rank__c
+  //       FROM CM_Players__c
+  //       WHERE Id = :tc.CM_Winning_Player__c OR Id = :tc.CM_Losing_Player__c
+  //       ORDER BY CM_ELO_Rank__c ASC
+  //     ];
+
+  //     //? find loser's record
+  //     CM_Players__c loser = new CM_Players__c();
+  //     for (CM_Players__c player : players) {
+  //       if (player.Id == tc.CM_Losing_Player__c) {
+  //         loser = player;
+  //       }
+  //     }
+  // 	Integer playerBELO = loser.CM_ELO_Rank__c;
+  // 	System.debug('playerBELO::: ' + playerBELO);
+
+  //     //? find winner's record
+  //     CM_Players__c winner = new CM_Players__c();
+  //     for (CM_Players__c player : players) {
+  //       if (player.Id == tc.CM_Winning_Player__c) {
+  //         winner = player;
+  //       }
+  //     }
+  // 	Integer playerAELO = winner.CM_ELO_Rank__c;
+  // 	System.debug('playerAELO::: ' + playerAELO);
+
+  // 	//! no longer needed since we are using a rollup summary
+  //     // //? update loser's rank
+  //     // loser.CM_Rank__c = tc.CM_Losing_Player_s_New_Rank__c;
+  //     // update loser;
+  //     // System.debug('loser::: ' + JSON.serializePretty(loser));
+  //     // //? update winner's rank
+  //     // winner.CM_Rank__c = tc.CM_Winning_Player_s_New_Rank__c;
+  //     // update winner;
+  //     // System.debug('winner::: ' + JSON.serializePretty(winner));
+
+  //     //? Calculate the ELO change value for the player A
+  //     Integer playerAExpected = 1/(1+ pow(10, ((playerBELO - playerAELO)/400));
+  // 	System.debug('playerAExpected::: ' + playerAExpected);
+
+  //     Integer playerBExpected = 1/(1+ pow(10, ((playerAELO - playerBELO)/400));
+  // 	System.debug('playerBExpected::: ' + playerBExpected);
+  //     Integer winnerELOChange;
+  //     Integer loserELOChange;
+
+  //     //? Create a ELO receipt for each player based on the Tag Challenge
+  //     CM_Elo_Receipt__c receipt = new CM_Elo_Receipt__c();
+  //     receipt.ELO_Player__c = winner.Id;
+  //     receipt.CM_ELO_Change__c = winnerELOChange;
+
+  //     //? Create a ELO receipt for each player based on the Tag Challenge
+  //     CM_Elo_Receipt__c receipt = new CM_Elo_Receipt__c();
+  //     receipt.ELO_Player__c = winner.Id;
+  //     receipt.CM_ELO_Change__c = winnerELOChange;
+
+  //     return tc;
+  //   }
 
   public class Challenge {
     @AuraEnabled
@@ -118,9 +155,30 @@ public without sharing class CM_Controller {
   @AuraEnabled
   public static List<CM_Players__c> getAllPlayers() {
     return [
-      SELECT Id, CM_Rank__c, CM_Avatar_File__c, Name, CreatedDate
+      SELECT
+        Id,
+        CM_Rank__c,
+        CM_Avatar_File__c,
+        Name,
+        CreatedDate,
+        CM_ELO_Rank__c
       FROM CM_Players__c
-      ORDER BY CM_Rank__c ASC
+      ORDER BY CM_ELO_Rank__c DESC, Name ASC
+    ];
+  }
+
+  @AuraEnabled
+  public static List<CM_Elo_Receipt__c> getAllEloReceipts() {
+    return [
+      SELECT
+        Id,
+        CM_Player__c,
+        CM_ELO_Change__c,
+        CM_Tag_Challenge__r.CM_Date_of_Event__c,
+        CM_Player__r.Name,
+        CreatedDate
+      FROM CM_Elo_Receipt__c
+      ORDER BY CreatedDate DESC
     ];
   }
 

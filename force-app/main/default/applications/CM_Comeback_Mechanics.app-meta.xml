@@ -14,6 +14,8 @@
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>CM_Tournament_Result__c</tabs>
+    <tabs>CM_Tournament__c</tabs>
+    <tabs>CM_Elo_Receipt__c</tabs>
+    <tabs>CM_Tag_Challenge__c</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Comeback_Mechanics_UtilityBar</utilityBar>
 </CustomApplication>
