@@ -153,13 +153,13 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Tournament Result</label>
+    <label>CM Tournament Result</label>
     <nameField>
         <displayFormat>TR-{00000}</displayFormat>
         <label>Tournament Result Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Tournament Results</pluralLabel>
+    <pluralLabel>CM Tournament Results</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

@@ -1,0 +1,46 @@
+.wrapper {
+	margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    position: relative;
+}
+
+.third-column {
+	text-align: center;
+}
+
+.rank-title {
+	font-size: 0.75rem;
+}
+
+.player-name {
+	font-size: 1.125rem;
+}
+
+.rank-number {
+	font-size: 1.5rem;
+}
+
+.rank-number .ordinal {
+	font-size: 0.75rem;
+	vertical-align: super;
+}
+
+.rank-wrapper {
+	display: grid;
+    /* grid-template-columns: 60px 3fr 1fr; */
+	grid-template-columns: 60px auto 60px;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.rank-wrapper .avatar {
+	width: 60px;
+}
+
+.rank-wrapper .avatar img {
+	border: solid 1px white;
+	border-radius: 50%;
+}

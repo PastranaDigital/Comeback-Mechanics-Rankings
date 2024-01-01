@@ -1,0 +1,126 @@
+<template>
+	<template if:true={isModalOpen}>
+		<!-- Modal/Popup Box LWC starts here -->
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-align_absolute-center">
+			<div class="slds-modal__container" onclick={closeModal}>
+				<!-- Modal/Popup Box LWC header here -->
+				<header class="modalHeader slds-modal__header">
+					<!-- <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+						<lightning-icon icon-name="utility:close"
+							alternative-text="close"
+							variant="inverse"
+							size="small"></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+					</button> -->
+					<h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{athSpotlight.Name}</h2>
+				</header>
+				<!-- Modal/Popup Box LWC body starts here -->
+				<div class="modalBody slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+					<img class="spotlightImage slds-align_absolute-center" src={athSpotlight.Pic} />
+
+					<div class="score-wrapper">
+						<!-- WILL ACT LIKE TABLE -->
+						<p class="spotlightRank"><b>Rank:</b> {athSpotlight.RankText}</p>
+						<p class="spotlightLocation"><b>Location:</b> {athSpotlight.Location}</p>
+						<!-- <p class="spotlightAge"><b>Age:</b> {athSpotlight.Age}</p> -->
+						<div class="score-name">Vault Points</div>
+						<div class="score-value">{athSpotlight.TotalPoints}</div>
+						<!-- <div class="score-name">Challenge Points</div>
+						<div class="score-value">{athSpotlight.ChallengeTotal}</div> -->
+						<div class="score-name">Workout Points</div>
+						<div class="score-value">{athSpotlight.SPWorkouts}</div>
+						<hr class="sum-line">
+						<div class="score-name score-total">Grand Total</div>
+						<div class="score-value score-total">{athSpotlight.GrandTotal}</div>
+					</div>
+					<!-- <template for:each={athSpotlight.allWorkouts} for:item="score">
+                        <c-athlete-spotlight key={score.Name} ath-score={score} ath-id={athSpotlight.Id} display-athlete-score=TRUE></c-athlete-spotlight>
+                    </template> -->
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open backdrop"></div>
+	</template>
+
+	<div class="wrapper">
+		<div class="leaderboard">
+			<table class="mainTable">
+				<thead>
+					<tr>
+						<th class="rank"><button onclick={handleAthleteClick}>&#9650;</button></th>
+						<th class="name">Athlete</th>
+						<th class="score">Score</th>
+					</tr>
+				</thead>
+				<tbody>
+					<template for:each={data} for:item="athlete">
+						<tr key={athlete.Id}>
+							<td class="rank">{athlete.Rank}</td>
+							<td class="name" id={athlete.Id} onclick={openModal}><img class="athleteImage" id={athlete.Id} src={athlete.Profile_Pic_URL__c} />
+								{athlete.Name}
+								<template if:true={displayAthleteScore}>
+									<div class="content">
+										<template for:each={athlete.allWorkouts} for:item="score">
+											<c-athlete-scoresheet key={score.Name} ath-score={score} ath-id={athlete.Id} display-athlete-score={displayAthleteScore}></c-athlete-scoresheet>
+										</template>
+									</div>
+								</template>
+							</td>
+							<td class="score">{athlete.Grand_Total__c}</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+		<div class="report-container">
+			<div class="vault-report">
+				<h2>Vault Points</h2>
+				<div class="report-wrapper">
+					<!-- WILL ACT LIKE TABLE -->
+					<template for:each={vaultReport} for:item="athlete">
+						<div key={athlete.Id} class="score-name">{athlete.Name}</div>
+						<div key={athlete.Id} class="score-value">{athlete.Total_Points__c}</div>
+					</template>
+				</div>
+			</div>
+			<!-- <div class="challenge-report">
+				<h2>Challenge Points</h2>
+				<div class="report-wrapper">
+					<template for:each={challengeReport} for:item="athlete">
+						<div key={athlete.Id} class="score-name">{athlete.Name}</div>
+						<div key={athlete.Id} class="score-value">{athlete.Challenges_Completed__c}</div>
+					</template>
+				</div>
+			</div> -->
+			<div class="workout-report">
+				<h2>Workout Points</h2>
+				<div class="report-wrapper">
+					<!-- WILL ACT LIKE TABLE -->
+					<template for:each={workoutReport} for:item="athlete">
+						<div key={athlete.Id} class="score-name">{athlete.Name}</div>
+						<div key={athlete.Id} class="score-value">{athlete.Did_SP_Workout__c}</div>
+					</template>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rules">
+		<h2>How Vault Scoring Works</h2>
+		<p>
+			The Vault Workout is scored as 2 parts: <br>Did you hit the goal? How did you rank?
+		</p>
+		<ul>
+			<li>100 pts for hitting the goal at any weight OR exceeding the goal if you did Rx weight</li>
+			<li>100 pts for 1st, 95 pts for 2nd...</li>
+		</ul>
+		<p>
+			It is better to drop weight and hit the goal then miss it doing Rx weight. You can retry the Vault workout, if you choose to enter a new score, your previous score will be overwritten.
+		</p>
+		<br>
+		<h2>Daily Workout Scoring</h2>
+		<p>
+			Each daily workout is 10 pts. Doing the Vault workout counts as your daily workout for the day. You can only score 1 daily workout per day.</p>
+		<p>What is considered a workout? All Street Parking daily workouts and many other things, if you aren't sure, ask. <br>In general, activity requiring physical effort and elevated heart rate, carried out to sustain or improve health and fitness.
+		</p>
+	</div>
+</template>

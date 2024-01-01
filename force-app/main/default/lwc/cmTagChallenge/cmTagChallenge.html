@@ -1,0 +1,62 @@
+<template>
+	<div class="frosted form-wrapper">
+		<lightning-combobox
+			label="Winner"
+			name="Winner"
+			placeholder="Select the Winner"
+			class="slds-p-left_medium slds-p-vertical_small"
+			field-level-help=""
+			value={winner}
+			options={allPlayers}
+			onchange={handleWinnerPlayerChange}
+			required></lightning-combobox>
+		<lightning-combobox
+			label="Loser"
+			name="Loser"
+			placeholder="Select the Loser"
+			class="slds-p-left_medium slds-p-vertical_small"
+			field-level-help=""
+			value={loser}
+			options={allPlayers}
+			onchange={handleLoserPlayerChange}
+			required></lightning-combobox>
+		<template if:true={showError}>
+			<span class="game-results error">Players cannot match. Please correct.</span>
+		</template>
+		<template if:false={showError}>
+			<span class="game-results">{winnerResults}<br>{loserResults}</span>
+		</template>
+		<template if:false={loading}>
+			<lightning-button
+				variant="brand"
+				label="Submit Game Results"
+				title="Submit Game Results"
+				onclick={handleSubmitClick}
+				disabled={deactivateSubmit}
+				class="slds-m-around_medium"></lightning-button>
+		</template>
+		<template if:true={loading}>
+			<lightning-spinner size="medium"></lightning-spinner>
+		</template>
+		<template if:true={errorSubmitting}>
+			<div class="error">
+				<p>I'm sorry, there seems to be an error submitting. Please contact Omar Pastrana</p>
+				<p>{error.body.pageErrors.message}</p>
+			</div>
+		</template>
+	</div>
+	<div class="challenge-title">Tag Challenge History</div>
+	<div class="challenge-wrapper">
+		<template for:each={tagChallenges} for:item="tc">
+			<div key={tc.Id} class="challenge-content">
+				<span class="date">{tc.date}</span>
+				<template if:true={tc.CM_Defended_Tag__c}>
+					<span class="statement">🛡 {tc.winner} ({tc.winnersRank}{tc.winnerOrdinal}) defended vs {tc.loser} ({tc.losersRank}{tc.loserOrdinal})</span>
+				</template>
+				<template if:false={tc.CM_Defended_Tag__c}>
+					<span class="statement">{tc.winner} ({tc.losersRank}{tc.loserOrdinal}) defeated {tc.loser} ({tc.winnersRank}{tc.winnerOrdinal})</span>
+				</template>
+			</div>
+		</template>
+	</div>
+</template>
