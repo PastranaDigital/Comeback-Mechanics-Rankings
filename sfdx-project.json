@@ -8,5 +8,5 @@
   "name": "SP_Vault_Comp",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "52.0"
+  "sourceApiVersion": "58.0"
 }

@@ -1,6 +1,11 @@
 public without sharing class CM_Controller {
   @AuraEnabled
-  public static CM_Tag_Challenge__c createTagChallenge(CM_Tag_Challenge__c tc) {
+  public static CM_Tag_Challenge__c createTagChallenge(
+    CM_Tag_Challenge__c tc,
+    Receipt r
+  ) {
+    System.debug('tc::: ' + JSON.serializePretty(tc));
+    System.debug('r::: ' + JSON.serializePretty(r));
     // CM_Tag_Challenge__c tag = new CM_Tag_Challenge__c(
     // 	CM_Date_of_Event__c = ch.dateOfEvent,
     // 	CM_Winning_Player__c = ch.winnersId,
@@ -15,8 +20,23 @@ public without sharing class CM_Controller {
     }
     System.debug('tc2::: ' + tc);
 
+    List<CM_Elo_Receipt__c> receipts = new List<CM_Elo_Receipt__c>();
     //? insert Player A ELO receipt
+    CM_Elo_Receipt__c winnerEloReceipt = new CM_Elo_Receipt__c();
+    winnerEloReceipt.CM_ELO_Change__c = r.winningPlayerEloChange;
+    winnerEloReceipt.CM_Player__c = r.winningPlayerId;
+    winnerEloReceipt.CM_Tag_Challenge__c = tc.Id;
+    receipts.add(winnerEloReceipt);
+
     //? insert Player B ELO receipt
+    CM_Elo_Receipt__c loserEloReceipt = new CM_Elo_Receipt__c();
+    loserEloReceipt.CM_ELO_Change__c = r.losingPlayerEloChange;
+    loserEloReceipt.CM_Player__c = r.losingPlayerId;
+    loserEloReceipt.CM_Tag_Challenge__c = tc.Id;
+    receipts.add(loserEloReceipt);
+
+    System.debug('receipts::: ' + JSON.serializePretty(receipts));
+    insert receipts;
     return tc;
   }
 
@@ -123,10 +143,14 @@ public without sharing class CM_Controller {
     @AuraEnabled
     public List<CM_Tag_Challenge__c> allTagChallenges;
 
+    @AuraEnabled
+    public List<CM_Settings__mdt> metadataConstants;
+
     public OutboundViewModel() {
       this.allTournamentResults = getAllTournamentResults();
       this.allPlayers = getAllPlayers();
       this.allTagChallenges = getAllTagChallenges();
+      this.metadataConstants = getMetadataConstants();
     }
   }
 
@@ -148,7 +172,9 @@ public without sharing class CM_Controller {
         CreatedDate,
         CM_Tournament__r.CM_Date_of_Event__c
       FROM CM_Tournament_Result__c
-      ORDER BY CM_Tournament_Standing__c ASC
+      ORDER BY
+        CM_Tournament_Standing__c ASC,
+        CM_Tournament__r.CM_Date_of_Event__c DESC
     ];
   }
 
@@ -163,7 +189,17 @@ public without sharing class CM_Controller {
         CreatedDate,
         CM_ELO_Rank__c
       FROM CM_Players__c
+      WHERE Active__c = TRUE
       ORDER BY CM_ELO_Rank__c DESC, Name ASC
+    ];
+  }
+
+  @AuraEnabled
+  public static List<CM_Settings__mdt> getMetadataConstants() {
+    return [
+      SELECT Id, K_Value__c, DeveloperName
+      FROM CM_Settings__mdt
+      WHERE DeveloperName = 'Default'
     ];
   }
 
@@ -188,16 +224,20 @@ public without sharing class CM_Controller {
       SELECT
         Id,
         CM_Date_of_Event__c,
+        CM_Winning_Player_s_Previous_Elo__c,
+        CM_Winning_Players_Elo_Change__c,
         CM_Winning_Player__c,
         CM_Winning_Player__r.Name,
         CM_Winning_Player_s_New_Rank__c,
+        CM_Losing_Player_s_Previous_Elo__c,
+        CM_Losing_Players_Elo_Change__c,
         CM_Losing_Player__c,
         CM_Losing_Player__r.Name,
         CM_Losing_Player_s_New_Rank__c,
         CreatedDate,
         CM_Defended_Tag__c
       FROM CM_Tag_Challenge__c
-      ORDER BY Name DESC
+      ORDER BY CreatedDate DESC
     ];
   }
 
@@ -216,5 +256,17 @@ public without sharing class CM_Controller {
     }
     System.debug(listName);
     return listName;
+  }
+
+  //   @AuraEnabled
+  public class Receipt {
+    @AuraEnabled
+    public String winningPlayerId { get; set; }
+    @AuraEnabled
+    public Decimal winningPlayerEloChange { get; set; }
+    @AuraEnabled
+    public String losingPlayerId { get; set; }
+    @AuraEnabled
+    public Decimal losingPlayerEloChange { get; set; }
   }
 }

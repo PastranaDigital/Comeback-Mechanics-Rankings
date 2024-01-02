@@ -10,6 +10,7 @@ export default class CmWrapper extends LightningElement {
   allPlayerOptions = [];
   allTagChallenges = [];
   allTournamentResults = [];
+  metadataConstants;
 
   loading = true;
 
@@ -51,6 +52,8 @@ export default class CmWrapper extends LightningElement {
         this.allTagChallenges = this.buildAllTagChallenges(
           this.outboundModel.allTagChallenges
         );
+        this.metadataConstants = this.outboundModel.metadataConstants[0];
+        console.log("this.metadataConstants: ", this.metadataConstants);
 
         this.loading = false;
         this.setNav("leaderboard");
@@ -148,16 +151,23 @@ export default class CmWrapper extends LightningElement {
       tempObj.Id = row.Id;
       tempObj.date = this.flipDate(row.CM_Date_of_Event__c);
       tempObj.winner = row.CM_Winning_Player__r.Name;
+      tempObj.winnerId = row.CM_Winning_Player__c;
       tempObj.winnersRank = row.CM_Winning_Player_s_New_Rank__c;
       tempObj.winnerOrdinal = h.getRankNumber(
         row.CM_Winning_Player_s_New_Rank__c
       );
       tempObj.loser = row.CM_Losing_Player__r.Name;
+      tempObj.loserId = row.CM_Losing_Player__c;
       tempObj.losersRank = row.CM_Losing_Player_s_New_Rank__c;
       tempObj.loserOrdinal = h.getRankNumber(
         row.CM_Losing_Player_s_New_Rank__c
       );
       tempObj.CM_Defended_Tag__c = row.CM_Defended_Tag__c;
+
+      //Elo strings
+
+      tempObj.winnerEloString = `${row.CM_Winning_Player_s_Previous_Elo__c} (+${row.CM_Winning_Players_Elo_Change__c})`;
+      tempObj.loserEloString = `${row.CM_Losing_Player_s_Previous_Elo__c} (${row.CM_Losing_Players_Elo_Change__c})`;
 
       tempArray.push(tempObj);
     });

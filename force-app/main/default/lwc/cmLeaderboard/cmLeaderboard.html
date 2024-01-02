@@ -29,6 +29,8 @@
     </template>
     <template if:true={selectedPlayer}>
       <c-cm-modal
+        all-tournament-results={allTournamentResults}
+        all-tag-challenges={allTagChallenges}
         selected-player={selectedPlayer}
         onclosemodal={handleCloseModal}
       ></c-cm-modal>

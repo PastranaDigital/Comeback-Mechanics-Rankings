@@ -55,6 +55,21 @@
   </div>
   <div class="challenge-title">Ranked Match History</div>
   <div class="challenge-wrapper">
+    <div class="challenge-content header-row">
+      <span class="date">Date</span>
+      <!-- <template if:true={tc.CM_Defended_Tag__c}>
+					<span class="statement">🛡 {tc.winner} defended vs {tc.loser}</span>
+					<span class="statement">🛡 {tc.winner} ({tc.winnersRank}{tc.winnerOrdinal}) defended vs {tc.loser} ({tc.losersRank}{tc.loserOrdinal})</span>
+				</template> -->
+      <!-- <template if:false={tc.CM_Defended_Tag__c}> -->
+      <div class="titles">
+        <span>Winner </span>
+        <!-- <span>
+						beat
+					</span> -->
+        <span> Loser </span>
+      </div>
+    </div>
     <template for:each={tagChallenges} for:item="tc">
       <div key={tc.Id} class="challenge-content">
         <span class="date">{tc.date}</span>
@@ -63,7 +78,13 @@
 					<span class="statement">🛡 {tc.winner} ({tc.winnersRank}{tc.winnerOrdinal}) defended vs {tc.loser} ({tc.losersRank}{tc.loserOrdinal})</span>
 				</template> -->
         <!-- <template if:false={tc.CM_Defended_Tag__c}> -->
-        <span class="statement">{tc.winner} defeated {tc.loser}</span>
+        <div class="statement">
+          <span>{tc.winner} {tc.winnerEloString} </span>
+          <!-- <span>
+						beat
+					</span> -->
+          <span> {tc.loser} {tc.loserEloString} </span>
+        </div>
         <!-- <span class="statement">{tc.winner} ({tc.losersRank}{tc.loserOrdinal}) defeated {tc.loser} ({tc.winnersRank}{tc.winnerOrdinal})</span> -->
         <!-- </template> -->
       </div>

@@ -16,6 +16,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CM_Players__c.Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CM_Players__c.CM_Avatar_File__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -56,7 +61,18 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field
+    >CM_Tag_Challenge__c.CM_Losing_Player_s_Previous_Elo_archived__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CM_Tag_Challenge__c.CM_Losing_Player_s_Previous_Rank__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>CM_Tag_Challenge__c.CM_Losing_Players_Elo_Change__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -71,7 +87,18 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field
+    >CM_Tag_Challenge__c.CM_Winning_Player_s_Previous_Elo_archive__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CM_Tag_Challenge__c.CM_Winning_Player_s_Previous_Rank__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>CM_Tag_Challenge__c.CM_Winning_Players_Elo_Change__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

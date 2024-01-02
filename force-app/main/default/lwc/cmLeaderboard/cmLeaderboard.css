@@ -14,12 +14,16 @@
   font-size: 0.75rem;
 }
 
+img {
+  max-width: 75%;
+}
+
 .player-name {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
 }
 
 .rank-number {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--color-medium-text);
 }
 
@@ -30,7 +34,7 @@
 }
 
 .elo-number {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .rank-wrapper {
@@ -38,7 +42,7 @@
   /* grid-template-columns: 60px 3fr 1fr; */
   grid-template-columns: 60px 60px auto 90px;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   padding-bottom: 0.5rem;
 }
 

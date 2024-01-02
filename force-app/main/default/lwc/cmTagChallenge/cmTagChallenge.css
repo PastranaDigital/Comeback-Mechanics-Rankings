@@ -38,13 +38,25 @@ lightning-button {
 
 .challenge-content {
   display: grid;
-  grid-template-columns: 3fr 5fr;
+  grid-template-columns: 1fr 5fr;
   align-items: center;
   gap: 1rem;
 }
 
+.header-row {
+  /* text-align: center; */
+  font-size: 0.625rem;
+  color: var(--color-medium-text);
+}
+
+.header-row .titles,
+.statement {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .challenge-content .date {
-  font-size: 0.5rem;
+  font-size: 0.625rem;
   text-align: right;
   color: var(--color-medium-text);
 }

@@ -17,7 +17,7 @@ body {
     background: linear-gradient(#35c3c34d, #00000000) no-repeat;
     z-index: 0; */
   position: fixed;
-  top: -30vh;
+  top: -60vh; /* was -30*/
   border-radius: 50%;
   width: 150vw;
   height: 60vh;
@@ -30,7 +30,7 @@ body {
 
 .bottom-gradient {
   position: fixed;
-  bottom: -30vh;
+  bottom: -40vh;
   border-radius: 50%;
   width: 150vw;
   height: 40vh;
