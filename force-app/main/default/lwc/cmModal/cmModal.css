@@ -117,7 +117,7 @@ h2 {
 
 .challenge-records-container {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 6fr;
   gap: 0.125rem;
   align-items: center;
 }

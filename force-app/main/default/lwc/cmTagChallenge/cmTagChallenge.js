@@ -200,16 +200,16 @@ export default class CmTagChallenge extends LightningElement {
     return exp;
   }
 
-  calculateExpected(a, b) {
-    console.log("calculateExpected a: ", a);
-    console.log("calculateExpected b: ", b);
+  calculateExpected(winner, loser) {
+    console.log("calculateExpected winner: ", winner);
+    console.log("calculateExpected loser: ", loser);
     let obj = {
-      winner: { elo: a, expected: 0.0 },
-      loser: { elo: b, expected: 0.0 }
+      winner: { elo: winner, expected: 0.0 },
+      loser: { elo: loser, expected: 0.0 }
     };
-    obj.winner.expected = this.expectedFormula(b, a);
+    obj.winner.expected = this.expectedFormula(winner, loser);
     console.log("obj.winner.expected: ", obj.winner.expected);
-    obj.loser.expected = this.expectedFormula(a, b);
+    obj.loser.expected = this.expectedFormula(loser, winner);
     console.log("obj.loser.expected: ", obj.loser.expected);
     return obj;
   }

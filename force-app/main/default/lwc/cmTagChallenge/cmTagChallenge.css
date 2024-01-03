@@ -38,9 +38,9 @@ lightning-button {
 
 .challenge-content {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 6fr;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .header-row {

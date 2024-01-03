@@ -197,7 +197,7 @@ export default class CmWrapper extends LightningElement {
   flipDate(d) {
     //? incoming as 2023-08-12
     let dArray = d.split("-");
-    return `${dArray[1]}/${dArray[2]}/${dArray[0]}`;
+    return `${dArray[1]}/${dArray[2]}/${dArray[0].slice(2, 4)}`;
   }
 
   scrollToTop() {

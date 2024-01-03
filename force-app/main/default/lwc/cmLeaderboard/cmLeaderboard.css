@@ -40,7 +40,8 @@ img {
 .rank-wrapper {
   display: grid;
   /* grid-template-columns: 60px 3fr 1fr; */
-  grid-template-columns: 60px 60px auto 90px;
+  /* grid-template-columns: 60px 60px auto 90px; */
+  grid-template-columns: 45px 50px auto 70px;
   align-items: center;
   gap: 0.5rem;
   padding-bottom: 0.5rem;
