@@ -10,7 +10,7 @@ export default class CmModal extends LightningElement {
   noTournamentResults = false;
 
   challengeRecords = [];
-  noChallengeRecords = false;
+  noChallengeRecords = true;
 
   connectedCallback() {
     console.log("selectedPlayer: ", JSON.stringify(this.selectedPlayer));
@@ -35,7 +35,9 @@ export default class CmModal extends LightningElement {
         this.tournamentResults.push(obj);
       }
     });
-    if (this.tournamentResults.length === 0) this.noTournamentResults = true;
+    if (this.tournamentResults.length === 0) {
+      this.noTournamentResults = true;
+    }
   }
 
   processTagChallenges(arr) {
@@ -50,7 +52,10 @@ export default class CmModal extends LightningElement {
         this.challengeRecords.push(obj);
       }
     });
-    if (this.challengeRecords.length === 0) this.noChallengeRecords = true;
+    if (this.challengeRecords.length != 0) {
+      this.noChallengeRecords = false;
+      this.challengeRecords.splice(10); // trim to 10
+    }
   }
 
   closeModal() {
