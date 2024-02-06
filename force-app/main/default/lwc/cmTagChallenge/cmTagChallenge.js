@@ -78,7 +78,13 @@ export default class CmTagChallenge extends LightningElement {
       "this.allPlayers: ",
       JSON.parse(JSON.stringify(this.allPlayers))
     );
-    this.todaysDate = new Date();
+    let today = new Date();
+
+    //? adjust for time zone
+    let offset = today.getTimezoneOffset() / 60;
+    this.todaysDate = new Date(new Date().getTime() - offset * 3600 * 1000);
+
+    console.log("this.todaysDate: ", this.todaysDate);
     console.log("this.tagChallenges: ", this.tagChallenges);
     this.tagRecordWrapper.CM_Date_of_Event__c = this.todaysDate;
   }
