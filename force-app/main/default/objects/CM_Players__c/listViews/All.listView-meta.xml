@@ -4,6 +4,7 @@
     <columns>CM_ELO_Rank__c</columns>
     <columns>NAME</columns>
     <columns>CM_Avatar_File__c</columns>
+    <columns>Active__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

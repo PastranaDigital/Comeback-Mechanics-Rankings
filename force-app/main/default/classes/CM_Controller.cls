@@ -187,6 +187,7 @@ public without sharing class CM_Controller {
         CM_Avatar_File__c,
         Name,
         CreatedDate,
+        CM_ELO_Slip_Count__c,
         CM_ELO_Rank__c
       FROM CM_Players__c
       WHERE Active__c = TRUE

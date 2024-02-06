@@ -105,14 +105,21 @@ export default class CmWrapper extends LightningElement {
 
   buildAllPlayers(arr) {
     let tempArray = [];
+
+    //? needed for counting rank with the slipCount being used
+    let tempIndex = 0;
     arr.forEach((row, index) => {
+      //? Guard Clause for only players with more than 1 ELO Slip
+      if (row.CM_ELO_Slip_Count__c < 2) return;
+
       let tempObj = {};
+      tempIndex++;
 
       tempObj.Name = row.Name;
       tempObj.Id = row.Id;
       tempObj.CM_Avatar_File__c =
         imageResource + "/Images/" + row.CM_Avatar_File__c;
-      tempObj.CM_Rank__c = index + 1;
+      tempObj.CM_Rank__c = tempIndex;
       tempObj.CM_ELO_Rank__c = row.CM_ELO_Rank__c;
       tempObj.Ordinal = h.getRankNumber(tempObj.CM_Rank__c);
 
