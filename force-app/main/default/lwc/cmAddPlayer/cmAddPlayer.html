@@ -1,0 +1,54 @@
+<template>
+  <header>
+    <div class="bg-image">
+      <img src={img_logo} alt="Title" />
+    </div>
+    <div class="title">
+      <span class="name">Comeback Mechanics</span>
+      <h1>ADD PLAYER</h1>
+    </div>
+  </header>
+  <div class="container">
+    <template if:true={loading}>
+      <lightning-spinner size="medium"></lightning-spinner>
+    </template>
+    <lightning-card title="Add Player" icon-name="utility:adduser">
+      <div class="slds-p-around_medium">
+        <lightning-input
+          label="Name"
+          type="text"
+          placeholder=""
+          class="slds-p-vertical_small"
+          field-level-help=""
+          required
+          onchange={handleChange}
+        ></lightning-input>
+        <br />
+        <template if:false={success}>
+          <template if:false={failure}>
+            <p>
+              Enter a name. Once submitted, it will appear in the Ranked Match
+              dropdown.
+            </p>
+          </template></template
+        >
+        <template if:true={success}>
+          <p class="slds-text-color_success">{message}</p>
+        </template>
+        <template if:true={failure}>
+          <p class="slds-text-color_error">{error}</p>
+        </template>
+      </div>
+      <p slot="footer">
+        <lightning-button
+          variant="brand"
+          label="Submit"
+          title="Submit"
+          onclick={handleClick}
+          disabled={deactiveButton}
+          class="slds-m-around_medium"
+        ></lightning-button>
+      </p>
+    </lightning-card>
+  </div>
+</template>

@@ -1,0 +1,56 @@
+body {
+  color: var(--color-dark-text);
+  /* font-family: "Source Sans Pro", sans-serif; */
+  font-family: sans-serif;
+}
+
+h1 {
+  position: relative;
+  top: -16px;
+  color: white;
+  font-size: 2.125rem;
+  font-weight: 800;
+  /* font-family: Bebas; */
+}
+
+header {
+  width: 100vw;
+  height: 14rem;
+  text-transform: uppercase;
+  top: 0;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.title {
+  align-items: center;
+  width: 100%;
+  position: relative;
+  top: -220px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.title .name {
+  color: #afd1d1;
+  font-weight: 600;
+}
+
+.bg-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: -12px;
+}
+
+.bg-image img {
+  opacity: 15%;
+  width: min(100vw, 21rem);
+  position: relative;
+  top: -35px;
+  z-index: 1;
+}

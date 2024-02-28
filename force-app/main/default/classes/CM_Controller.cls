@@ -1,5 +1,25 @@
 public without sharing class CM_Controller {
   @AuraEnabled
+  public static CM_Players__c addPlayer(String playerName) {
+    System.debug('playerName::: ' + JSON.serializePretty(playerName));
+
+    if (playerName == null)
+      return null;
+
+    CM_Players__c player = new CM_Players__c(
+      Active__c = true,
+      CM_Avatar_File__c = 'default.png',
+      Name = playerName
+    );
+
+    System.debug('player::: ' + JSON.serializePretty(player));
+    if (player != null) {
+      insert player;
+    }
+    return player;
+  }
+
+  @AuraEnabled
   public static CM_Tag_Challenge__c createTagChallenge(
     CM_Tag_Challenge__c tc,
     Receipt r
