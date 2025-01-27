@@ -1,5 +1,7 @@
 # Comeback Mechanics
 
+![Comeback Mechanics Banner](./docs/assets/banner.png)
+
 <br><br>
 
 ## Project Links
@@ -56,4 +58,4 @@ apex method handles the creating of the TC record & also updates both players' r
 
 - [ ] Path #2
 Omar creates Tournament Results records in Salesforce
-Trigger fires to update the player's rank based on the TR record
+Trigger fires to update the player's rank based on the TR record 
