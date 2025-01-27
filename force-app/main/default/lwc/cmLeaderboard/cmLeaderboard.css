@@ -1,46 +1,57 @@
 .wrapper {
-	margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  position: relative;
 }
 
 .third-column {
-	text-align: center;
+  text-align: center;
 }
 
 .rank-title {
-	font-size: 0.75rem;
+  font-size: 0.75rem;
+}
+
+img {
+  max-width: 75%;
 }
 
 .player-name {
-	font-size: 1.125rem;
+  font-size: 1.25rem;
 }
 
 .rank-number {
-	font-size: 1.5rem;
+  font-size: 1rem;
+  color: var(--color-medium-text);
 }
 
 .rank-number .ordinal {
-	font-size: 0.75rem;
-	vertical-align: super;
+  font-size: 0.75rem;
+  vertical-align: super;
+  color: var(--color-medium-text);
+}
+
+.elo-number {
+  font-size: 1.25rem;
 }
 
 .rank-wrapper {
-	display: grid;
-    /* grid-template-columns: 60px 3fr 1fr; */
-	grid-template-columns: 60px auto 60px;
-    align-items: center;
-    gap: 1rem;
-    padding-bottom: 0.5rem;
+  display: grid;
+  /* grid-template-columns: 60px 3fr 1fr; */
+  /* grid-template-columns: 60px 60px auto 90px; */
+  grid-template-columns: 45px 50px auto 70px;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .rank-wrapper .avatar {
-	width: 60px;
+  width: 60px;
 }
 
 .rank-wrapper .avatar img {
-	border: solid 1px white;
-	border-radius: 50%;
+  border: solid 1px white;
+  border-radius: 50%;
 }
