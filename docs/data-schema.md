@@ -11,10 +11,11 @@ How do all these custom objects interact with each other?
 |Tag Challenge|`CM_Tag_Challenge__c`| These are created by the players thru the mobile site. Once created, an associated Elo Receipt is made for each player to track their Elo change.|
 |Tournament Result|`CM_Tournament_Result__c`| [Junction Object](https://www.salesforceben.com/what-is-a-junction-object-in-salesforce/) that connects the Player to the Tournament. This allows for cross object relationships.|
 |Tournament|`CM_Tournament__c`|Created on the backend by the Admin to later associate with Tournament Results.|
+|Setting|`CM_Setting__mdt`|This record, named "Default", holds information for how the application should be run. Ex: Elo Starting Value|
 
 <br> 
 
-## Schema Diagram
+## Schema Relationship Diagram
 
 ```mermaid
 classDiagram
